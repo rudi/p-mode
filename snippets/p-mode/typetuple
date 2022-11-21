@@ -1,0 +1,8 @@
+# -*- mode: snippet; -*-
+# name: typetuple
+# key: typetuple
+# --
+type ${1:Name}Type =
+(
+    $2
+);

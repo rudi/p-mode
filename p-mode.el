@@ -5,7 +5,7 @@
 ;; Author: Rudolf Schlatte <rudi@constantly.at>
 ;; URL: https://github.com/rudi/p-mode
 ;; Version: 0.1
-;; Package-Requires: ((emacs "28.1"))
+;; Package-Requires: ((emacs "28.1") (yasnippet "0.14.0"))
 ;; Keywords: tools, languages
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -28,6 +28,8 @@
 
 ;;; Code:
 
+(require 'yasnippet)
+
 ;; Customizations
 (defgroup P nil
   "Major mode for editing files for the P model checker.")
@@ -35,6 +37,36 @@
 (defcustom p-override-pascal-file-type nil
   "Toggle to choose whether to associate the `.P' file extension with `p-mode'.
 By default, `.P' is associated with files written in the Pascal language.")
+
+(defcustom p-mode-hook (list 'yas-minor-mode-on)
+  "Hook run after entering P mode."
+  :type 'hook
+  :options (list 'yas-minor-mode-on))
+
+(defvar p--yas-snippets-dir
+  (expand-file-name
+   "snippets"
+   (file-name-directory
+    (cond
+     (load-in-progress
+      load-file-name)
+     ((and (boundp 'byte-compile-current-file)
+           byte-compile-current-file)
+      byte-compile-current-file)
+     (t
+      (buffer-file-name)))))
+  "Directory containing yasnippet snippets for p-mode.")
+
+(defun p--initialize-yasnippets ()
+  (add-to-list 'yas-snippet-dirs p--yas-snippets-dir t)
+  ;; we use an internal function here, but the `yasnippet-snippets' package
+  ;; does the same; let's assume it's a de facto public API for now.
+  (yas--load-snippet-dirs))
+
+;;;###autoload
+(eval-after-load 'p-mode
+  '(p--initialize-yasnippets))
+
 
 ;; Syntax highlighting
 (defvar p-mode-syntax-table (copy-syntax-table)
@@ -114,10 +146,12 @@ By default, `.P' is associated with files written in the Pascal language.")
               comment-start "//"
               comment-end ""
               comment-start-skip "//+\\s-*")
-  (setq font-lock-defaults (list 'p-font-lock-defaults)))
+  (setq font-lock-defaults (list 'p-font-lock-defaults))
+  ;; don't let our missing indentation mess up the snippets
+  (setq-local yas-indent-line 'fixed))
 
-;; NOTE: Setting auto-mode-alist like this is a bit unfriendly since it
-;; shadows the file type association for the existing Pascal mode
+;; NOTE: Adding ourselves to `auto-mode-alist' would be a bit unfriendly since
+;; it shadows the file type association for the existing Pascal mode
 
 ;;;###autoload
 (when p-override-pascal-file-type

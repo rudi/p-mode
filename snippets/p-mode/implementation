@@ -1,0 +1,5 @@
+# -*- mode: snippet; -*-
+# name: implementation
+# key: implementation
+# --
+implementation ${1:SomeModule}, ${2:AnotherModule};

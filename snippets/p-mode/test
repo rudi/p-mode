@@ -1,0 +1,5 @@
+# -*- mode: snippet; -*-
+# name: test
+# key: test
+# --
+test safety ${1:name}: ${2:SomeModule}, ${3:AnotherModule};

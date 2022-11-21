@@ -1,0 +1,10 @@
+# -*- mode: snippet; -*-
+# name: module
+# key: module
+# --
+module ${1:ModuleName}
+sends ${2:eEvent}
+creates ${3:SomeMachine}
+{
+    $4
+}

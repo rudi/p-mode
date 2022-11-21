@@ -1,0 +1,16 @@
+# -*- mode: snippet; -*-
+# name: machine
+# key: machine
+# --
+machine ${1:MyMachine}
+{
+    // Fields: 
+    // States: 
+    start state ${2:Init}
+    {
+        entry
+        {
+            $3
+        }
+    }
+}
