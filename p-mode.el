@@ -28,6 +28,15 @@
 
 ;;; Code:
 
+;; Customizations
+(defgroup P nil
+  "Major mode for editing files for the P model checker.")
+
+(defcustom p-override-pascal-file-type nil
+  "Toggle to choose whether to associate the `.P' file extension with `p-mode'.
+By default, `.P' is associated with files written in the Pascal language.")
+
+;; Syntax highlighting
 (defvar p-mode-syntax-table (copy-syntax-table)
   "Syntax table for `p-mode'.")
 (modify-syntax-entry ?/   ". 124" p-mode-syntax-table)
@@ -61,18 +70,14 @@
   (regexp-opt
    '("true" "false" "null")
    'words)
-  "List of SMOL constants.")
-
-(defconst p-symbols
-  (regexp-opt
-   '( "$$" "$" "!" "&&" "||" "==" "!=" "<=" ">=" "<" ">" "->"
-      "=" "+=" "-=" "+" "-" "*" "/" "%")
-   'words))
+  "List of P constants.")
 
 (defconst p-types
-  ;; taken from https://github.com/p-org/P/blob/master/Src/PCompiler/CompilerCore/Parser/PLexer.g4
+  ;; taken from
+  ;; https://github.com/p-org/P/blob/master/Src/PCompiler/CompilerCore/Parser/PLexer.g4
   (regexp-opt
-   '("any" "bool" "enum" "event" "eventset" "float" "int" "machine" "interface" "map" "set" "string" "seq" "data")
+   '("any" "bool" "enum" "event" "eventset" "float" "int" "machine" "interface"
+     "map" "set" "string" "seq" "data")
    'words)
   "List of P type names.")
 
@@ -115,7 +120,8 @@
 ;; shadows the file type association for the existing Pascal mode
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.p\\'" . p-mode))
+(when p-override-pascal-file-type
+  (add-to-list 'auto-mode-alist '("\\.p\\'" . p-mode)))
 
 (provide 'p-mode)
 ;;; p-mode.el ends here
