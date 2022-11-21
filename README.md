@@ -29,7 +29,7 @@ Then, add the following to your emacs init file (typically `~/.emacs` or
 ```elisp
 (use-package p-mode
   :load-path "~/source/p-mode"
-  :mode ("\\.p\\'"
+  :mode "\\.p\\'"
   :commands (p-mode))
 ```
 
