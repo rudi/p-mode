@@ -1,5 +1,5 @@
 # -*- mode: snippet; -*-
-# name: whileindex
+# name: array while loop
 # key: whileindex
 # --
 ${1:index} = 0;

@@ -2,7 +2,8 @@
 
 This mode provides support for editing files for the [P model
 checker](https://p-org.github.io/P/) in Emacs.  Currently supports syntax
-highlighting only.
+highlighting and expansion of snippets.  For a list of snippets, check the
+p-mode submenu in the "YASnippet" pull-down menu.
 
 ## Installation
 

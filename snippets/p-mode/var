@@ -1,5 +1,5 @@
 # -*- mode: snippet; -*-
-# name: var
+# name: variable
 # key: var
 # --
 var ${1:Name}V : ${2:Type};
