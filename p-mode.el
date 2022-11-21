@@ -3,6 +3,9 @@
 ;; Copyright (C) 2022  Rudolf Schlatte
 
 ;; Author: Rudolf Schlatte <rudi@constantly.at>
+;; URL: https://github.com/rudi/p-mode
+;; Version: 0.1
+;; Package-Requires: ((emacs "28.1"))
 ;; Keywords: tools, languages
 
 ;; This program is free software; you can redistribute it and/or modify
