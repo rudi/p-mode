@@ -139,6 +139,7 @@ By default, `.P' is associated with files written in the Pascal language.")
    ())
   "Font lock information for P.")
 
+;;;###autoload
 (define-derived-mode p-mode prog-mode "P"
   "Major mode for editing files for the P model checker."
   :group 'P
