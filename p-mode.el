@@ -31,12 +31,14 @@
 (require 'yasnippet)
 
 ;; Customizations
-(defgroup P nil
-  "Major mode for editing files for the P model checker.")
+(defgroup p nil
+  "Major mode for editing files for the P model checker."
+  :group 'languages)
 
 (defcustom p-override-pascal-file-type nil
-  "Toggle to choose whether to associate the `.P' file extension with `p-mode'.
-By default, `.P' is associated with files written in the Pascal language.")
+  "Toggle to choose whether to associate the `.p' file extension with `p-mode'.
+By default, `.p' is associated with files written in the Pascal language."
+  :type 'boolean)
 
 (defcustom p-mode-hook (list 'yas-minor-mode-on)
   "Hook run after entering P mode."
@@ -55,18 +57,7 @@ By default, `.P' is associated with files written in the Pascal language.")
       byte-compile-current-file)
      (t
       (buffer-file-name)))))
-  "Directory containing yasnippet snippets for p-mode.")
-
-(defun p--initialize-yasnippets ()
-  (add-to-list 'yas-snippet-dirs p--yas-snippets-dir t)
-  ;; we use an internal function here, but the `yasnippet-snippets' package
-  ;; does the same; let's assume it's a de facto public API for now.
-  (yas--load-snippet-dirs))
-
-;;;###autoload
-(eval-after-load 'p-mode
-  '(p--initialize-yasnippets))
-
+  "Directory containing yasnippet snippets for P.")
 
 ;; Syntax highlighting
 (defvar p-mode-syntax-table (copy-syntax-table)
@@ -93,8 +84,7 @@ By default, `.P' is associated with files written in the Pascal language.")
      ;; machine annotations
      "receives" "sends"
      ;; common keywords
-     "creates" "to"
-     )
+     "creates" "to")
    'words)
   "List of P keywords.")
 
@@ -148,11 +138,18 @@ By default, `.P' is associated with files written in the Pascal language.")
               comment-end ""
               comment-start-skip "//+\\s-*")
   (setq font-lock-defaults (list 'p-font-lock-defaults))
-  ;; don't let our missing indentation mess up the snippets
-  (setq-local yas-indent-line 'fixed))
+  ;; don't let our missing indentation support mess up the snippets
+  (setq-local yas-indent-line 'fixed)
+  (unless (member p--yas-snippets-dir yas-snippet-dirs)
+    (add-to-list 'yas-snippet-dirs p--yas-snippets-dir t)
+    ;; we use an internal function here, but the `yasnippet-snippets' package
+    ;; does the same; let's assume this is a de facto public API for now.
+    (yas--load-snippet-dirs)))
+
 
 ;; NOTE: Adding ourselves to `auto-mode-alist' would be a bit unfriendly since
-;; it shadows the file type association for the existing Pascal mode
+;; it shadows the file type association for the existing Pascal mode; make
+;; this a user option for now.
 
 ;;;###autoload
 (when p-override-pascal-file-type
