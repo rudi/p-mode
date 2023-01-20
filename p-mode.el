@@ -5,7 +5,7 @@
 ;; Author: Rudolf Schlatte <rudi@constantly.at>
 ;; URL: https://github.com/rudi/p-mode
 ;; Version: 0.1
-;; Package-Requires: ((emacs "28.1") (yasnippet "0.14.0") (transient "0.3"))
+;; Package-Requires: ((emacs "27.1") (yasnippet "0.14.0") (transient "0.3"))
 ;; Keywords: tools, languages
 
 ;; This program is free software; you can redistribute it and/or modify
