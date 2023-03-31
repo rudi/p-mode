@@ -40,7 +40,7 @@ form:
 ```elisp
 (setq p-override-pascal-file-type t)
 (use-package p-mode
-  :straight (:host github :repo "rudi/p-mode" :files ("*.el"))
+  :straight (:host github :repo "rudi/p-mode" :files ("*.el" "snippets"))
   :ensure t
   :mode "\\.p\\'"
   :commands (p-mode))
