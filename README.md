@@ -33,6 +33,19 @@ Then, add the following to your emacs init file (typically `~/.emacs` or
   :commands (p-mode))
 ```
 
-NOTE: The above form associates files with extension `.p` with `p-mode`,
+If you use the [straight package
+manager](https://github.com/radian-software/straight.el), use the following
+form:
+
+```elisp
+(setq p-override-pascal-file-type t)
+(use-package p-mode
+  :straight (:host github :repo "rudi/p-mode" :files ("*.el"))
+  :ensure t
+  :mode "\\.p\\'"
+  :commands (p-mode))
+```
+
+NOTE: The above forms associate files with extension `.p` with `p-mode`,
 thereby overriding the pre-existing binding of such types with `pascal-mode`.
 To avoid this, remove the line beginning with `:mode`.
